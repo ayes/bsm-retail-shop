@@ -71,13 +71,29 @@
 <td><?php echo $row->unit; ?></td>
 
 
-<td><?php echo anchor('app/products/edit/'.$row->id, 'EDIT', array('title'=>'Edit')); ?></td>
+<td><?php echo anchor('app/products/edit/'.$row->idcode, 'EDIT', array('title'=>'Edit')); ?></td>
 <td><?php echo anchor('app/products/delete/'.$row->id.'/'.$row->picture, 'DELETE', array('title'=>'Hapus', 'onClick'=>"return confirm('Anda yakin ingin menghapus?')")); ?></td>
 
 </tr>                                
  
 <?php endforeach; ?>				
 			</table>
+    <p>
+Total Item : <?php echo $get_all_item; ?>   
+    </p>
+    <p>
+Total All Stock : <?php echo $get_all_stock; ?>   
+    </p>    
+    <p>
+Total All Purchase : <?php echo number_format($get_all_purchase, 0, ',', '.'); ?>   
+    </p>
+    <p>
+Total All Sale : <?php echo number_format($get_all_selling, 0, ',', '.'); ?> 
+    </p>
+    <?php $total_profit = $get_all_selling - $get_all_purchase; ?>  
+    <p>
+Profit : <?php echo number_format($total_profit, 0, ',', '.'); ?> 
+    </p>
 </div>
 </div>
 <div id="pagination" align="right">

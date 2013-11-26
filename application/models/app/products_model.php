@@ -31,6 +31,30 @@ class Products_model extends CI_Model {
         $query = $this->db->get();
         return $query;
     }
+    function get_all_stock() {
+        $this->db->select_sum('stock');
+        $q = $this->db->get('tbproducts')->result();
+        foreach ($q as $total_all_stock) :
+            return $total_all_stock->stock;
+        endforeach;
+    }
+    function get_all_item() {   
+            return $this->db->count_all('tbproducts');
+    }
+    function get_all_purchase() {   
+            $this->db->select_sum('purchase_price', 'pp');
+        $q = $this->db->get('tbproducts')->result();
+        foreach ($q as $pp) :
+            return $pp->pp;
+        endforeach;
+    }
+    function get_all_selling() {   
+            $this->db->select_sum('selling_price', 'sp');
+        $q = $this->db->get('tbproducts')->result();
+        foreach ($q as $sp) :
+            return $sp->sp;
+        endforeach;
+    }
     function getProductCategory() {
         $this->db->order_by('category', 'asc');
         return $this->db->get('tbproduct_category');
@@ -40,7 +64,20 @@ class Products_model extends CI_Model {
         $this->db->order_by('unit', 'asc');
         return $this->db->get('tbunit');
     }
-    
+    function code_cek($code)
+	{
+		
+		$this->db->where('id', $code);
+                $query = $this->db->get('tbproducts');
+		if($query->num_rows() != 0)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
     function save() {
         $config = array(
                 'allowed_types' => 'jpg|jpeg|gif|png',

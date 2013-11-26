@@ -13,10 +13,22 @@
 class Products extends CI_Controller {
     function __construct() {
         parent::__construct();
+        $this->user_logged_in();
         $this->load->model('app/products_model');
     }
+    function user_logged_in() 
+    {
+        if (($this->session->userdata('login') != TRUE) || ($this->session->userdata('panel') != 'ADMC'))
+        {
+                redirect('app-panel');
+        }
+     }
     function index() {
         $data['content'] = 'app/object/products/products_view';
+        $data['get_all_stock'] = $this->products_model->get_all_stock();
+        $data['get_all_item'] = $this->products_model->get_all_item();
+        $data['get_all_purchase'] = $this->products_model->get_all_purchase();
+        $data['get_all_selling'] = $this->products_model->get_all_selling();
         $data['getProducts'] = $this->products_model->getProducts();
         $this->load->view('app/template_view', $data);
     }
@@ -27,20 +39,44 @@ class Products extends CI_Controller {
         $this->load->view('app/template_view', $data);
     }
     function save() {
-         
+            
+            $config = array(
+                        array('field' => 'code', 'label' => 'Code','rules' => 'required|callback_code_cek')
+                        );
+            $this->form_validation->set_rules($config);
+		
+		if($this->form_validation->run() === FALSE)
+		{
+			$this->add();
+		}
+		else
+		{
             $this->session->set_flashdata('ses_save_category',$this->input->post('product_category_id'));
             $this->session->set_flashdata('ses_save_unit',$this->input->post('unit_id'));
             $this->products_model->save();
             $this->session->set_flashdata('message', 'Product has been added..');
             redirect('app/products/add');
+                }
  
     }
+    function code_cek($code)
+	{
+		if($this->products_model->code_cek($code) === TRUE)
+		{
+			$this->form_validation->set_message('code_cek','<b>%s</b> existing.');
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
     function edit() {
         $data['getEdit'] = $this->products_model->editId();
         $data['getProductCategory'] = $this->products_model->getProductCategory();
-        $data['header'] = 'admin/includes/header';
-        $data['content'] = 'admin/object/products/products_edit';
-        $this->load->view('admin/template_view', $data);
+        $data['get_unit'] = $this->products_model->get_unit();
+        $data['content'] = 'app/object/products/products_edit';
+        $this->load->view('app/template_view', $data);
     }
     function editFormId() {
         $this->load->library('ckeditor');

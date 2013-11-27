@@ -82,7 +82,7 @@
       </div>
       <div class="form-group">
     <label for="code">Code</label>
-    <input name="code" maxlength="15" type="text" class="form-control" id="code" placeholder="Code" required="required">
+    <input name="code" maxlength="15" type="text" class="form-control" id="code" placeholder="Code" required="required" autofocus>
       </div>
       <div class="form-group">
     <label for="name">Product Name</label>

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Faza Shop The Online Shopping Experience">
+    <meta name="description" content="BSM Retail Shop">
     <meta name="author" content="Irfan Mahfudz Guntur - ayes@bsmsite.com">
     <?php echo link_tag('http://tools.bsmsite.com/template/fazashop/icon/favicon.ico', 'shortcut icon', 'image/x-icon'); ?>
 
@@ -30,7 +30,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">Faza Shop</a>
+          <a class="navbar-brand" href="/"><?php echo $this->tools_model->getShopName(); ?></a>
         </div>
         <div class="collapse navbar-collapse">
           

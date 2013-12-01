@@ -37,7 +37,7 @@ class Unit_model extends CI_Model {
     }
     function editId() {
         $this->db->where('id', $this->uri->segment(4));
-        return $this->db->get('tbproduct_category');
+        return $this->db->get('tbunit');
     }
     function editFormId() {
         $id = $this->input->post('id');
@@ -47,14 +47,14 @@ class Unit_model extends CI_Model {
     function update() {
         $id = $this->input->post('id');
          $data = array(
-            'category' => $this->input->post('category')
+            'unit' => $this->input->post('unit')
         );
         $this->db->where('id', $id);
-        $this->db->update('tbproduct_category', $data);
+        $this->db->update('tbunit', $data);
     }
     function delete() {
         $this->db->where('id', $this->uri->segment(4));
-        $this->db->delete('tbproduct_category');
+        $this->db->delete('tbunit');
     }
 }
 

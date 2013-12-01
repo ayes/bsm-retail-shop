@@ -41,13 +41,20 @@ class Products extends CI_Controller {
     function save() {
             
             $config = array(
-                        array('field' => 'code', 'label' => 'Code','rules' => 'required|callback_code_cek')
+                        array('field' => 'code', 'label' => 'Code','rules' => 'required|callback_code_cek'),
+                        array('field' => 'name', 'label' => 'Product Name','rules' => 'required'),
+                        array('field' => 'purchase_price', 'label' => 'Purchase Price','rules' => 'required|numeric'),
+                        array('field' => 'selling_price', 'label' => 'Selling Price','rules' => 'required|numeric'),
+                        array('field' => 'stock', 'label' => 'Stock','rules' => 'required|numeric'),
+                        array('field' => 'product_category_id','rules' => ''),
+                        array('field' => 'unit_id','rules' => ''),
                         );
             $this->form_validation->set_rules($config);
 		
 		if($this->form_validation->run() === FALSE)
 		{
-			$this->add();
+			
+                        $this->add();
 		}
 		else
 		{
@@ -99,19 +106,23 @@ class Products extends CI_Controller {
          
             $this->products_model->update();
             $this->session->set_flashdata('message', 'Product has been update..');
-            redirect('admin/products');
+            redirect('app/products');
 
     }
     function delete() {
+        if (($this->tools_model->cek_no_delete_selling($this->uri->segment(4)) === TRUE) || $this->tools_model->cek_no_delete_purchase($this->uri->segment(4)) === TRUE ) :
+            $this->session->set_flashdata('message', 'Sorry product cannot delete..');
+            redirect('app/products');
+            else:
             $this->products_model->delete();
             $this->session->set_flashdata('message', 'Product has been delete..');
-            redirect('admin/products');
-    }
+            redirect('app/products');
+        endif;
+    } 
     function search() {
-        $data['header'] = 'admin/includes/header';
-        $data['content'] = 'admin/object/products/products_view';
+        $data['content'] = 'app/object/products/products_view';
         $data['getProducts'] = $this->products_model->getSearchProduct();
-        $this->load->view('admin/template_view', $data);
+        $this->load->view('app/template_view', $data);
     }
 }
 

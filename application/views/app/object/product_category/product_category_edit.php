@@ -12,7 +12,7 @@
         </div><!-- /.row -->
 <div class="row">
           <div class="col-lg-6">
-<?php echo form_open('admin/product_category/update', array('role' => 'form')); ?>    
+<?php echo form_open('app/product_category/update', array('role' => 'form')); ?>    
               <?php foreach($getEdit->result() as $row) : ?>
               <?php echo form_hidden('id', $row->id); ?>
   <div class="form-group">

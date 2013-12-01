@@ -24,11 +24,11 @@
 <td><?php echo $no=$no+1; ?></td>
 <td><?php echo $row->category; ?></td>
 
-<td><?php echo anchor('admin/product_category/edit/'.$row->id, 'EDIT', array('title'=>'Edit')); ?></td>
+<td><?php echo anchor('app/product_category/edit/'.$row->id, 'EDIT', array('title'=>'Edit')); ?></td>
 
 <td>
     <?php if ($this->product_category_model->countProductCategory($row->id) == 0) { ;?>
-<?php echo anchor('admin/product_category/delete/'.$row->id, 'DELETE', array('title'=>'Hapus', 'onClick'=>"return confirm('Anda yakin ingin menghapus?')")); ?>
+<?php echo anchor('app/product_category/delete/'.$row->id, 'DELETE', array('title'=>'Hapus', 'onClick'=>"return confirm('Anda yakin ingin menghapus?')")); ?>
 <?php } else { ?>
  <?php echo 'CANNOT DELETE'; ?>
  <?php } ?>

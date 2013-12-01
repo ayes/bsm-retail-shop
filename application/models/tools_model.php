@@ -62,6 +62,44 @@ class Tools_model extends CI_Model {
             return $row->setting;
         }
     }
+    function get_last_cash()
+    {
+        $this->db->select('sum(incoming) - sum(outgoing) as lb');
+        $this->db->from('tbcash_book');
+        $q = $this->db->get();
+        foreach ($q->result() as $incoming) :
+            return $incoming->lb;
+        endforeach;
+        
+    }
+    function cek_no_delete_selling($idcode)
+	{
+		
+		$this->db->where('product_id', $idcode);
+                $query = $this->db->get('tbselling');
+		if($query->num_rows() != 0)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+        function cek_no_delete_purchase($idcode)
+	{
+		
+		$this->db->where('product_id', $idcode);
+                $query = $this->db->get('tbpurchase');
+		if($query->num_rows() != 0)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
 }
 
 ?>

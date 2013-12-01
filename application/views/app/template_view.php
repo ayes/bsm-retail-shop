@@ -18,19 +18,67 @@
         <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-time"></span> Master <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="/app/product_category"><span class="glyphicon glyphicon-time"></span> Category</a></li>  
                 <li><a href="/app/products"><span class="glyphicon glyphicon-time"></span> Products</a></li>
+                <li class="divider"></li>
+                <li><a href="/app/product_category"><span class="glyphicon glyphicon-time"></span> Category</a></li> 
                 <li><a href="/app/unit"><span class="glyphicon glyphicon-time"></span> Unit</a></li>
-                <li><a href="/admin/how_order"><span class="glyphicon glyphicon-time"></span> How To Order</a></li>
             </ul>
         </li>
     </ul>
+      <ul class="nav navbar-nav navbar">
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-time"></span> Transaction <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="/app/selling"><span class="glyphicon glyphicon-time"></span> Selling</a></li>
+                <li><a href="/app/purchase"><span class="glyphicon glyphicon-time"></span> Purchase</a></li>
+                <li class="divider"></li>
+                <li><a href="/app/return_selling"><span class="glyphicon glyphicon-time"></span> Return Selling</a></li>
+                <li><a href="/app/return_purchase"><span class="glyphicon glyphicon-time"></span> Return Purchase</a></li>
+            </ul>
+        </li>
+    </ul> 
+      <ul class="nav navbar-nav navbar">
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-time"></span> Stock <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="/app/stock_card"><span class="glyphicon glyphicon-time"></span> Stock Card</a></li>
+            <li class="divider"></li>
+                <li><a href="/app/added_stock"><span class="glyphicon glyphicon-time"></span> Added Stock</a></li>
+                <li><a href="/app/remove_stock"><span class="glyphicon glyphicon-time"></span> Remove Stock</a></li>
+            </ul>
+        </li>
+    </ul> 
+      <ul class="nav navbar-nav navbar">
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-time"></span> Finance <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+               <?php // <li><a href="/app/initial_cash"><span class="glyphicon glyphicon-time"></span> Initial Cash</a></li> ?>
+                <li><a href="/app/cash_incoming"><span class="glyphicon glyphicon-time"></span> Cash Incoming</a></li>
+                <li><a href="/app/cash_outgoing"><span class="glyphicon glyphicon-time"></span> Cash Outgoing</a></li>
+                <li class="divider"></li>
+                <li><a href="/app/debit_purchase"><span class="glyphicon glyphicon-time"></span> Debit Purchase (Hutang Pembelian)</a></li>
+                <li><a href="/app/receivables_sales"><span class="glyphicon glyphicon-time"></span> Receivables Sales (Piutang Penjualan)</a></li>
+                <li class="divider"></li>
+                <li><a href="/app/cash_book"><span class="glyphicon glyphicon-time"></span> Cash Book</a></li>
+            </ul>
+        </li>
+    </ul> 
+       <ul class="nav navbar-nav navbar">
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-time"></span> Statistic <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="/app/counter"><span class="glyphicon glyphicon-time"></span> Counter</a></li>
+                <li class="divider"></li>
+                <li><a href="/app/fast_moving"><span class="glyphicon glyphicon-time"></span> Fast Moving</a></li>
+                <li><a href="/app/slow_moving"><span class="glyphicon glyphicon-time"></span> Slow Moving</a></li>
+            </ul>
+        </li>
+    </ul>  
     <ul class="nav navbar-nav navbar">
         <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-time"></span> Widget <b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-time"></span> Report <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="/admin/ym_live_support"><span class="glyphicon glyphicon-time"></span> YM Live Support</a></li>
-                <li><a href="/admin/widget_contact"><span class="glyphicon glyphicon-time"></span> Contact</a></li>
+                <li><a href="/app/income"><span class="glyphicon glyphicon-time"></span> Income</a></li>
             </ul>
         </li>
     </ul>  
@@ -39,7 +87,7 @@
                 
       
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-star"></span> Alert <span class="badge">7</span></a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-usd"></span> <?php echo number_format($this->tools_model->get_last_cash(), 0, ',', '.'); ?></a></li>
       <li class="dropdown user-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <?php echo $this->session->userdata('name'); ?> <b class="caret"></b></a>
               <ul class="dropdown-menu">

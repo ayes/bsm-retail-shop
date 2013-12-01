@@ -21,7 +21,7 @@
     <div class="col-lg-12">
 <?php echo form_open('app/products/search'); ?>
 	
-				<?php $input 	= array('name' => 'keyword', 'size' => 20, 'type' => 'search', 'class' => 'form-control'); ?>
+
         <div class="row">
             <div class="col-xs-3">
                 Search product name or code:
@@ -30,11 +30,13 @@
         <div class="row">
             <div class="col-xs-2">
             <select name="option" class="form-control">
-    <option value="id">Code</option>
-    <option value="name">Name</option>
+                <option value="name">Name</option>
+    <option value="tp.id">Code</option>
+    
 </select>
             </div>
         <div class="col-xs-3">
+            <?php $input = array('name' => 'keyword', 'size' => 20, 'type' => 'search', 'class' => 'form-control'); ?>
 				<?php echo form_input($input); ?>
         </div>
                              <div class="col-xs-2">  
@@ -50,9 +52,8 @@
 <div class="col-lg-12">
 <table class="table table-striped">
 <tr>
-    <th>DATE</th>
-    <th>CODE</th>
     <th>NAME</th>
+    <th>CODE</th>
     <th>PURCHASE PRICE</th>
     <th>SELLING PRICE</th>
     <th>STOCK</th>
@@ -62,9 +63,11 @@
 </tr>                   
 <?php $no = $this->uri->segment(3); ?>
 <?php foreach($getProducts->result() as $row) : ?>                               
-<td><?php echo date("d-m-Y",strtotime($row->date)); ?></td>
-<td><?php echo $row->idcode; ?></td>
+<?php /* 
+ * <td><?php echo date("d-m-Y",strtotime($row->date)); ?></td>
+ */ ?>
 <td><?php echo $row->name; ?></td>
+<td><?php echo $row->idcode; ?></td>
 <td><?php echo number_format($row->purchase_price, 0, ',', '.'); ?></td>
 <td><?php echo number_format($row->selling_price, 0, ',', '.'); ?></td>
 <td><?php echo $row->stock; ?></td>
@@ -72,29 +75,20 @@
 
 
 <td><?php echo anchor('app/products/edit/'.$row->idcode, 'EDIT', array('title'=>'Edit')); ?></td>
-<td><?php echo anchor('app/products/delete/'.$row->id.'/'.$row->picture, 'DELETE', array('title'=>'Hapus', 'onClick'=>"return confirm('Anda yakin ingin menghapus?')")); ?></td>
-
+<?php if (($this->tools_model->cek_no_delete_selling($row->idcode) === TRUE) || $this->tools_model->cek_no_delete_purchase($row->idcode) === TRUE ) : ?>
+<td><?php echo 'ND'; ?></td>
+<?php else: ?>
+<td><?php echo anchor('app/products/delete/'.$row->idcode.'/'.$row->picture, 'DELETE', array('title'=>'Hapus', 'onClick'=>"return confirm('Anda yakin ingin menghapus?')")); ?></td>
+<?php endif; ?>
+ 
 </tr>                                
  
 <?php endforeach; ?>				
 			</table>
-    <p>
-Total Item : <?php echo $get_all_item; ?>   
-    </p>
-    <p>
-Total All Stock : <?php echo $get_all_stock; ?>   
-    </p>    
-    <p>
-Total All Purchase : <?php echo number_format($get_all_purchase, 0, ',', '.'); ?>   
-    </p>
-    <p>
-Total All Sale : <?php echo number_format($get_all_selling, 0, ',', '.'); ?> 
-    </p>
-    <?php $total_profit = $get_all_selling - $get_all_purchase; ?>  
-    <p>
-Profit : <?php echo number_format($total_profit, 0, ',', '.'); ?> 
-    </p>
+   
 </div>
 </div>
-<div id="pagination" align="right">
-</div>    
+<div class="paginationx text-right">
+    <?php echo $this->pagination->create_links(); ?>
+</div>
+  

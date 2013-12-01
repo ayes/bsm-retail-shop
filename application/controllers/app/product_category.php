@@ -41,9 +41,8 @@ class Product_category extends CI_Controller {
     }
     function edit() {
         $data['getEdit'] = $this->product_category_model->editId();
-        $data['header'] = 'admin/includes/header';
-        $data['content'] = 'admin/object/product_category/product_category_edit';
-         $this->load->view('admin/template_view', $data);
+        $data['content'] = 'app/object/product_category/product_category_edit';
+         $this->load->view('app/template_view', $data);
     }
     function editFormId() {
         $data['getEdit'] = $this->news_category_model->editFormId();
@@ -55,13 +54,18 @@ class Product_category extends CI_Controller {
        
             $this->product_category_model->update();
             $this->session->set_flashdata('message', 'Category has been update..');
-            redirect('admin/product_category');
+            redirect('app/product_category');
  
     }
     function delete() {
+        if ($this->product_category_model->countProductCategory($this->uri->segment(4)) == 0) :
             $this->product_category_model->delete();
             $this->session->set_flashdata('message', 'Category has been delete..');
-            redirect('admin/product_category');
+            redirect('app/product_category');
+             else:
+                $this->session->set_flashdata('message', 'Sorry Category cannot be removed..');
+            redirect('app/product_category');
+    endif;
     }
 }
 

@@ -28,7 +28,7 @@
 
 <td>
     <?php if ($this->unit_model->count_product_unit($row->id) == 0) { ;?>
-<?php echo anchor('admin/product_category/delete/'.$row->id, 'DELETE', array('title'=>'Hapus', 'onClick'=>"return confirm('Anda yakin ingin menghapus?')")); ?>
+<?php echo anchor('app/unit/delete/'.$row->id, 'DELETE', array('title'=>'Hapus', 'onClick'=>"return confirm('Anda yakin ingin menghapus?')")); ?>
 <?php } else { ?>
  <?php echo 'CANNOT DELETE'; ?>
  <?php } ?>

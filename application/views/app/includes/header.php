@@ -12,7 +12,7 @@
     <link href="http://tools.bsmsite.com/template/bootstrap/css/bootstrap.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="http://tools.bsmsite.com/template/fazashop/css/admin.css" rel="stylesheet">
-    
+    <link href="/source/css/pagination.css" rel="stylesheet">
     
   </head>
   <body>

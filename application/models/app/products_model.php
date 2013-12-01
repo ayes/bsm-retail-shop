@@ -18,15 +18,15 @@ class Products_model extends CI_Model {
         $this->product_path = realpath(APPPATH . '../fx-archive/images_product');
     }
     function getProducts() {
-        $config['base_url'] = site_url('admin/products/index');
-	$config['total_rows'] = $this->db->count_all('tbproduct_category');
-        $config['per_page'] = 15;
+        $config['base_url'] = site_url('app/products/index');
+	$config['total_rows'] = $this->db->count_all('tbproducts');
+        $config['per_page'] = 30;
         $config['uri_segment'] = 4;
         $this->pagination->initialize($config);
         $this->db->select('*, tp.id as idcode');
         $this->db->from('tbproducts as tp');
         $this->db->join('tbunit as tu', 'tu.id = tp.unit_id');
-        $this->db->limit($config['per_page'], $this->uri->segment(4));
+        $this->db->limit(30, $this->uri->segment(4));
         $this->db->order_by('name', 'asc');
         $query = $this->db->get();
         return $query;
@@ -103,7 +103,7 @@ class Products_model extends CI_Model {
                     'date' => con2mysql($this->input->post('date')),
                     'product_category_id' => $this->input->post('product_category_id'),
                     'unit_id' => $this->input->post('unit_id'),
-                    'id' => $this->input->post('code'),
+                    'id' => preg_replace('/\s+/', '', strtolower($this->input->post('code'))),
                     'name' => $this->input->post('name'),
                     'purchase_price' => $this->input->post('purchase_price'),
                     'selling_price' => $this->input->post('selling_price'),
@@ -117,7 +117,15 @@ class Products_model extends CI_Model {
                 unlink($this->product_path.'/'.$image_file);
             }
             $this->db->insert('tbproducts',$data);
-             
+            $data = array(
+                    'date' => con2mysql($this->input->post('date')),
+                    'product_id' => preg_replace('/\s+/', '', strtolower($this->input->post('code'))),
+                    'description' => 'SO',
+                    'description_code' => 'SO',
+                    'stock_entry' => $this->input->post('stock'),
+                    'balance' => $this->input->post('stock'),
+                );
+             $this->db->insert('tbstock_card',$data);
     }
 
     function editId() {
@@ -157,10 +165,12 @@ class Products_model extends CI_Model {
  
         
                $data = array(
-  
+                   'stock' => $this->input->post('stock'),
+                    'unit_id' => $this->input->post('unit_id'),
                     'product_category_id' => $this->input->post('product_category_id'),
                     'name' => $this->input->post('name'),
-                    'price' => $this->input->post('price'),
+                    'purchase_price' => $this->input->post('purchase_price'),
+                    'selling_price' => $this->input->post('selling_price'),
                     'description' => $this->input->post('description')
                 );
              if ($image_ext != '') {
@@ -172,6 +182,13 @@ class Products_model extends CI_Model {
             }
         $this->db->where('id', $id);
         $this->db->update('tbproducts', $data);
+        $data = array(
+                    
+                    'stock_entry' => $this->input->post('stock'),
+                    'balance' => $this->input->post('stock'),
+                );
+            $this->db->where('product_id', $id);
+             $this->db->update('tbstock_card',$data);
     }
      private function _get_size($image) {
     $img = getimagesize($image);
@@ -183,13 +200,20 @@ class Products_model extends CI_Model {
         }
         $this->db->where('id', $this->uri->segment(4));
         $this->db->delete('tbproducts');
+        $this->db->where('product_id', $this->uri->segment(4));
+        $this->db->delete('tbstock_card');
         
     }
     function getSearchProduct() {
         $keyword = $this->input->post('keyword');
         $option = $this->input->post('option');
+        
+        $this->db->select('*, tp.id as idcode');
+        $this->db->from('tbproducts as tp');
+        $this->db->join('tbunit as tu', 'tu.id = tp.unit_id');
         $this->db->like($option,$keyword);
-        return $this->db->get('tbproducts');
+        $this->db->order_by('name', 'asc');
+        return $this->db->get();
     }
 }
 

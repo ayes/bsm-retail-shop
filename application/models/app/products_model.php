@@ -31,6 +31,15 @@ class Products_model extends CI_Model {
         $query = $this->db->get();
         return $query;
     }
+    function get_print_product() {
+       
+        $this->db->select('*, tp.id as idcode');
+        $this->db->from('tbproducts as tp');
+        $this->db->join('tbunit as tu', 'tu.id = tp.unit_id');
+        $this->db->order_by('name', 'asc');
+        $query = $this->db->get();
+        return $query;
+    }
     function get_all_stock() {
         $this->db->select_sum('stock');
         $q = $this->db->get('tbproducts')->result();

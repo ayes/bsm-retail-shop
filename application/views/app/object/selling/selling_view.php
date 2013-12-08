@@ -47,6 +47,10 @@
 	<?php echo form_close(); ?>
     </div>
 <br />
+<div class="text-right col-lg-12">
+    <?php echo anchor('app/selling/selling_form/0', 'Selling Form'); ?>
+</div>
+<br />
 <div class="col-lg-12">
 <table class="table table-striped">
 <tr>
@@ -72,7 +76,7 @@
 <td><?php echo $row->unit; ?></td>
 
 
-<td><?php echo anchor('app/selling/sale/'.$row->idcode, 'SALE', array('title'=>'Edit')); ?></td>
+<td><?php echo anchor('app/selling/selling_form/'.$row->idcode, 'SALE', array('title'=>'Edit')); ?></td>
 <?php 
 /*
 <td><?php echo anchor('app/products/delete/'.$row->id.'/'.$row->picture, 'DELETE', array('title'=>'Hapus', 'onClick'=>"return confirm('Anda yakin ingin menghapus?')")); ?></td>

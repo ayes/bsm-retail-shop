@@ -39,6 +39,23 @@ class Return_selling extends CI_Controller {
             $this->session->set_flashdata('message', 'Selling has been return..');
             redirect('app/return_selling');
     }
+    function search() {
+        $data['content'] = 'app/object/return/return_selling_view';
+        $data['get_return_selling'] = $this->return_selling_model->search_return_selling();
+        $this->load->view('app/template_view', $data);
+    }
+    function detail_returned() {
+      
+            $data['get_return_detail_index'] = $this->return_selling_model->get_return_detail_index();
+            $data['get_return_detail_content'] = $this->return_selling_model->get_return_detail_content();
+        $data['content'] = 'app/object/return/return_selling_detail';
+        $this->load->view('app/template_view', $data);
+    }
+    function save_return() {
+            $this->return_selling_model->save_return();
+            $this->session->set_flashdata('message', 'Selling has been return..');
+            redirect('app/return_selling');
+    }
 }
 
 ?>

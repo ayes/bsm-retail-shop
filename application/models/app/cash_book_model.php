@@ -25,7 +25,7 @@ class Cash_book_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('tbcash_book');
         $this->db->limit(30, $this->uri->segment(4));
-        $this->db->order_by('date desc, id desc');
+        $this->db->order_by('id desc');
         $query = $this->db->get();
         return $query;
     }
@@ -59,7 +59,14 @@ class Cash_book_model extends CI_Model {
         $this->db->order_by('unit', 'asc');
         return $this->db->get('tbunit');
     }
-    
+    function search_cash() {
+        $bulan = $this->input->post('bulan');
+        $tahun = $this->input->post('tahun');
+        $this->db->where('month(date)', $bulan);
+        $this->db->where('year(date)', $tahun);
+        $this->db->order_by('date', 'desc');
+        return $this->db->get('tbcash_book');
+    }
 }
 
 ?>

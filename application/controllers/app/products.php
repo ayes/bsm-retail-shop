@@ -124,6 +124,16 @@ class Products extends CI_Controller {
         $data['getProducts'] = $this->products_model->getSearchProduct();
         $this->load->view('app/template_view', $data);
     }
+    function print_product() {
+        $data['getProducts'] = $this->products_model->get_print_product();
+        $this->load->view('app/object/products/products_print', $data);
+    }
+    function search_pop_product() {
+        
+        
+        $data['getProducts'] = $this->products_model->getProducts();
+        $this->load->view('app/search_pop_product_view', $data);
+    }
 }
 
 ?>

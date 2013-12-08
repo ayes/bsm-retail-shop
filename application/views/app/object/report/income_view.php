@@ -12,7 +12,6 @@
      <div class="col-lg-12">
          <table class="table table-striped">
 <tr>
-    <th>DATE</th>
     <th>PRODUCT CODE</th>
     <th>NAME</th>
     <th>PURHASE PRICE</th>
@@ -28,8 +27,9 @@
 <?php foreach($get_income->result() as $row) : ?>                               
 <?php /* 
  * <td><?php echo date("d-m-Y",strtotime($row->date)); ?></td>
+ * <td><?php echo date("d-m-Y",strtotime($row->date)); ?></td>
  */ ?>
-<td><?php echo date("d-m-Y",strtotime($row->date)); ?></td>
+
 <td><?php echo $row->product_id; ?></td>
 <td><?php echo $row->name; ?></td>
 <td><?php echo number_format($row->purchase_price, 0, ',', '.'); ?></td>

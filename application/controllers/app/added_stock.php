@@ -84,8 +84,8 @@ class Added_stock extends CI_Controller {
             redirect('admin/products');
     } */
     function search() {
-        $data['content'] = 'app/object/purchase/purchase_view';
-        $data['get_purchase'] = $this->purchase_model->getSearchProduct();
+        $data['content'] = 'app/object/stock/added_stock_view';
+        $data['get_added_stock'] = $this->added_stock_model->get_search_stock();
         $this->load->view('app/template_view', $data);
     }
 }

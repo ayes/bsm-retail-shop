@@ -36,7 +36,7 @@ class Selling extends CI_Controller {
            
             $this->selling_model->save();
             $this->session->set_flashdata('message', 'Selling has been added..');
-            redirect('app/selling');
+            redirect('app/selling/selling_form/0');
 
  
     }
@@ -90,6 +90,25 @@ class Selling extends CI_Controller {
         $data['content'] = 'app/object/selling/selling_view';
         $data['get_selling'] = $this->selling_model->getSearchProduct();
         $this->load->view('app/template_view', $data);
+    }
+     function selling_form() {
+        $data['getEdit'] = $this->selling_model->editId();
+        $data['get_selling_temp'] = $this->selling_model->get_selling_temp();
+        $data['content'] = 'app/object/selling/selling_form';
+        $this->load->view('app/template_view', $data);
+    }
+    function delete_temp() {
+            $this->selling_model->delete_temp();
+            $this->session->set_flashdata('message', 'selling has been delete..');
+            redirect('app/selling/selling_form/0');
+    } 
+    function save_fix() {
+           
+            $this->selling_model->save_fix();
+            $this->session->set_flashdata('message', 'Selling has been added..');
+            redirect('app/selling/selling_form/0');
+
+ 
     }
 }
 

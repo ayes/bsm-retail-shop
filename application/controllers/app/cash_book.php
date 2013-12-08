@@ -28,6 +28,12 @@ class Cash_book extends CI_Controller {
         $data['get_cash_book'] = $this->cash_book_model->get_cash_book();
         $this->load->view('app/template_view', $data);
     }
+    function search()
+    {
+         $data['content'] = 'app/object/cash/cash_book_view';
+        $data['get_cash_book'] = $this->cash_book_model->search_cash();
+        $this->load->view('app/template_view', $data);
+    }
 }
 
 ?>

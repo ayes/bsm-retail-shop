@@ -20,10 +20,10 @@ class fast_moving_model extends CI_Model {
     function get_fast_moving() {
        
         $this->db->select('S.product_id, S.name, sum(S.qty) as fm');
-        $this->db->from('tbselling as S');
+        $this->db->from('tbselling_detail as S');
        // $this->db->join('tbunit as tu', 'tu.id = tp.unit_id');
        // $this->db->join('tbselling as sale', 'tu.id = tp.unit_id');
-        $this->db->limit(30);
+        $this->db->limit(100);
         $this->db->order_by('fm', 'desc');
         $this->db->group_by('S.product_id');
         $query = $this->db->get();

@@ -29,8 +29,7 @@ class Return_purchase extends CI_Controller {
         $this->load->view('app/template_view', $data);
     }
     function returned() {
-      
-            $data['getEdit'] = $this->return_purchase_model->editId();
+        $data['getEdit'] = $this->return_purchase_model->editId();
         $data['content'] = 'app/object/return/return_purchase_returned';
         $this->load->view('app/template_view', $data);
     }
@@ -38,6 +37,11 @@ class Return_purchase extends CI_Controller {
             $this->return_purchase_model->save();
             $this->session->set_flashdata('message', 'Purchase has been return..');
             redirect('app/return_purchase');
+    }
+    function search() {
+        $data['content'] = 'app/object/return/return_purchase_view';
+        $data['get_return_purchase'] = $this->return_purchase_model->search_return_purchase();
+        $this->load->view('app/template_view', $data);
     }
 }
 

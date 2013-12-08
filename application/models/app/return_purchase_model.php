@@ -108,7 +108,15 @@ class Return_purchase_model extends CI_Model {
         endforeach;
         
     }
-    
+    function search_return_purchase() {
+        $keyword = $this->input->post('keyword');
+        $option = $this->input->post('option');
+        
+        
+        $this->db->like($option,$keyword);
+        $this->db->order_by('name', 'asc');
+        return $this->db->get('tbpurchase');
+    }
     
 }
 

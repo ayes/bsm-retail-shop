@@ -18,14 +18,14 @@ class Income_model extends CI_Model {
    
     function get_income() {
         $config['base_url'] = site_url('app/income/index');
-	$config['total_rows'] = $this->db->count_all('tbselling');
+	$config['total_rows'] = $this->db->count_all('tbselling_detail');
         $config['per_page'] = 30;
         $config['uri_segment'] = 4;
         $this->pagination->initialize($config);
-        $this->db->select('date, product_id, name, purchase_price, selling_price, qty, discount');
-        $this->db->from('tbselling');
+        $this->db->select('*');
+        $this->db->from('tbselling_detail');
         $this->db->limit(30, $this->uri->segment(4));
-        $this->db->order_by('date', 'asc');
+        $this->db->order_by('no_faktur', 'asc');
         $query = $this->db->get();
         return $query;
     }

@@ -15,13 +15,9 @@
               <li><a href="/app/dashboard"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
               <li class="active"><span class="glyphicon glyphicon-edit"></span> Added Stock</li>
             </ol>
-
-
           </div>
     <div class="col-lg-12">
 <?php echo form_open('app/added_stock/search'); ?>
-	
-
         <div class="row">
             <div class="col-xs-3">
                 Search product name or code:
@@ -31,7 +27,7 @@
             <div class="col-xs-2">
             <select name="option" class="form-control">
                 <option value="name">Name</option>
-    <option value="idcode">Code</option>
+    <option value="tp.id">Code</option>
     
 </select>
             </div>

@@ -211,7 +211,7 @@ class Remove_stock_model extends CI_Model {
         $this->db->delete('tbproducts');
         
     }
-    function getSearchProduct() {
+    function get_search_stock() {
         $keyword = $this->input->post('keyword');
         $option = $this->input->post('option');
         

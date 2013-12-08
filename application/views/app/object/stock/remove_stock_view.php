@@ -31,7 +31,7 @@
             <div class="col-xs-2">
             <select name="option" class="form-control">
                 <option value="name">Name</option>
-    <option value="idcode">Code</option>
+    <option value="tp.id">Code</option>
     
 </select>
             </div>

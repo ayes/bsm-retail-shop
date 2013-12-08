@@ -79,6 +79,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-time"></span> Report <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li><a href="/app/income"><span class="glyphicon glyphicon-time"></span> Income</a></li>
+                <li><a href="/app/products/print_product" target="_blank"><span class="glyphicon glyphicon-time"></span> Print Product</a></li>
             </ul>
         </li>
     </ul>  
@@ -94,7 +95,7 @@
                 <li><a href="/admin/profile"><span class="glyphicon glyphicon-user"></span> Shop Profile</a></li>
                 <li><a href="/admin/setting"><span class="glyphicon glyphicon-time"></span> Setting</a></li>
                 <li class="divider"></li>
-                <li><a href="/admin-panel/logout"><span class="glyphicon glyphicon-off"></span> Log Out</a></li>
+                <li><a href="/app-panel/logout"><span class="glyphicon glyphicon-off"></span> Log Out</a></li>
               </ul>
             </li>
     </ul>

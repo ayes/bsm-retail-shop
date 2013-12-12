@@ -33,7 +33,18 @@ class Debit_purchase_model extends CI_Model {
         return $query;
     }
     
-    
+     function get_return_detail_index() {
+        $this->db->where('no_faktur', $this->uri->segment(4));
+        return $this->db->get('tbpurchase');
+    }
+    function get_return_detail_content() {
+        $this->db->where('no_faktur', $this->uri->segment(4));
+        return $this->db->get('tbpurchase_detail');
+    }
+   function get_pembayaran_hutang_pembelian() {
+        $this->db->where('no_faktur', $this->uri->segment(4));
+        return $this->db->get('tbpembayaran_hutang_pembelian');
+    }
    
    function editId() {
         $this->db->where('id', $this->uri->segment(4));
@@ -63,6 +74,35 @@ class Debit_purchase_model extends CI_Model {
                     'status' => 0  
                 ); 
              $this->db->where('id', $id);
+        $this->db->update('tbpurchase', $data);
+    }
+    function payment() {
+        $no_faktur = $this->input->post('no_faktur');
+        $sisa = $this->input->post('sisa');
+        $dibayar = $this->input->post('dibayar');
+             $data = array(
+                    'date' => con2mysql($this->input->post('date')),
+                    'no_faktur' => $no_faktur,
+                    'dibayar' => $dibayar,
+                    'description' => $this->input->post('description')
+                ); 
+             $this->db->insert('tbpembayaran_hutang_pembelian',$data);
+        
+             $outgoing = $dibayar;
+             $last_cash = $this->_get_last_cash();
+             $data = array(
+                    'date' => con2mysql($this->input->post('date')),
+                    'cash_code' => 'OUT',
+                    'description' => 'HUTANG PEMBELIAN',
+                    'description_code' => $no_faktur,
+                    'outgoing' => $outgoing,
+                    'balance' => $last_cash - $outgoing 
+                ); 
+             $this->db->insert('tbcash_book',$data);
+              $data = array( 
+                    'residual' => $sisa - $dibayar
+                ); 
+             $this->db->where('no_faktur', $no_faktur);
         $this->db->update('tbpurchase', $data);
     }
     private function _get_last_cash()

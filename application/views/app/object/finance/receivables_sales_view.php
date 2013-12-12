@@ -23,16 +23,13 @@
 <div class="col-lg-12">
 <table class="table table-striped">
 <tr>
-    <th>DATE</th>
-    <th>INVOICE</th>
-    <th>CODE PDT</th>
-    <th>NAME</th>
-    <th>SELLING PRICE</th>
-    <th>QTY</th>
-    <th>DISC</th>
+   <th>DATE</th>
+    <th>NO. FAKTUR</th>
+    <th>TOTAL</th>
+    <th>SISA</th>
     <th>STATUS</th>
     <th>DESC</th>
-    <th>RETURN</th>
+    <th>DETAIL</th>
     <?php // <th>DELETE</th> ?>
 </tr>                   
 <?php $no = $this->uri->segment(3); ?>
@@ -40,12 +37,9 @@
 
 <td><?php echo date("d-m-Y",strtotime($row->date)); ?></td>
  
-<td><?php echo $row->id; ?></td>
-<td><?php echo $row->product_id; ?></td>
-<td><?php echo $row->name; ?></td>
-<td><?php echo number_format($row->selling_price, 0, ',', '.'); ?></td>
-<td><?php echo $row->qty; ?></td>
-<td><?php echo number_format($row->discount, 0, ',', '.'); ?></td>
+<td><?php echo $row->no_faktur; ?></td>
+<td><?php echo number_format($row->total, 0, ',', '.'); ?></td>
+<td><?php echo number_format($row->residual, 0, ',', '.'); ?></td>
 <?php if ($row->status == 0)  : ?>
 <?php $status = 'TUNAI'; ?>
 <?php else: ?>
@@ -54,9 +48,12 @@
 <td><?php echo $status; ?></td>
 <td><?php echo $row->description; ?></td>
 
-<td><?php echo anchor('app/receivables_sales/pay/'.$row->id, 'PAY', array('title'=>'Edit')); ?></td>
+<td><?php echo anchor('app/receivables_sales/detail/'.$row->no_faktur, 'DETAIL', array('title'=>'Edit')); ?></td>
+
+
 <?php 
 /*
+ * <td><?php echo anchor('app/receivables_sales/pay/'.$row->id, 'PAY', array('title'=>'Edit')); ?></td>
 <td><?php echo anchor('app/products/delete/'.$row->id.'/'.$row->picture, 'DELETE', array('title'=>'Hapus', 'onClick'=>"return confirm('Anda yakin ingin menghapus?')")); ?></td>
 */
   ?>

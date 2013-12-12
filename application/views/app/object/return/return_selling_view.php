@@ -53,7 +53,6 @@
     <th>DATE</th>
     <th>NO. FAKTUR</th>
     <th>TOTAL</th>
-
     <th>STATUS</th>
     <th>DESC</th>
     <th>DETAIL</th>

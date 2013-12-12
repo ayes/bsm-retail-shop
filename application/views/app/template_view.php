@@ -56,6 +56,9 @@
                 <li><a href="/app/cash_incoming"><span class="glyphicon glyphicon-time"></span> Cash Incoming</a></li>
                 <li><a href="/app/cash_outgoing"><span class="glyphicon glyphicon-time"></span> Cash Outgoing</a></li>
                 <li class="divider"></li>
+                <li><a href="/app/loan"><span class="glyphicon glyphicon-time"></span> Dana Pinjaman</a></li>
+                <li><a href="/app/loan_payment"><span class="glyphicon glyphicon-time"></span> Pengembalian Dana Pinjaman</a></li>
+                <li class="divider"></li>
                 <li><a href="/app/debit_purchase"><span class="glyphicon glyphicon-time"></span> Debit Purchase (Hutang Pembelian)</a></li>
                 <li><a href="/app/receivables_sales"><span class="glyphicon glyphicon-time"></span> Receivables Sales (Piutang Penjualan)</a></li>
                 <li class="divider"></li>

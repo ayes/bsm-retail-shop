@@ -78,7 +78,25 @@ class Purchase_model extends CI_Model {
 			return FALSE;
 		}
 	}
-    function save() {
+        function save()
+        {
+            $code = $this->input->post('code');
+        $qty = $this->input->post('qty');
+        $discount = $this->input->post('discount');
+        $selling_price = $this->input->post('selling_price');
+            $data = array(
+                 //   'date' => con2mysql($this->input->post('date')),
+                    'product_id' => $code,
+                    'no_faktur' => $this->input->post('no_faktur'),
+                    'name' => $this->input->post('name'),
+                    'purchase_price' => $this->input->post('purchase_price'),
+                    'selling_price' => $selling_price,
+                    'qty' => $qty,
+                    'discount' => $discount
+                ); 
+            $this->db->insert('tbpurchase_temp',$data);
+        }
+    function save_fixc() {
         $code = $this->input->post('code');
         $qty = $this->input->post('qty');
         $discount = $this->input->post('discount');
@@ -127,6 +145,83 @@ class Purchase_model extends CI_Model {
                 ); 
              $this->db->insert('tbcash_book',$data);
              endif;
+    }
+    function save_fix() {
+       // $code = $this->input->post('code');
+      //  $qty = $this->input->post('qty');
+       // $discount = $this->input->post('discount');
+       // $selling_price = $this->input->post('selling_price');
+        $status = $this->input->post('status');
+        $no_faktur = $this->input->post('no_faktur');
+        $total = $this->input->post('total');
+        $date = con2mysql($this->input->post('date'));
+            $data = array(
+                   'date' => $date,
+                  //  'product_id' => $code,
+                    'no_faktur' => $no_faktur,
+                  //  'name' => $this->input->post('name'),
+                  //  'purchase_price' => $this->input->post('purchase_price'),
+                 //   'selling_price' => $selling_price,
+                 //   'qty' => $qty,
+                 //   'discount' => $discount,
+                    'status' => $status,
+                'total' => $total,
+                'residual' => $total,
+                    'description' => $this->input->post('description')
+                ); 
+            $this->db->insert('tbpurchase',$data);
+            //get data temp
+                $q = $this->db->get('tbpurchase_temp');
+            foreach ($q->result() as $r) :
+                $data = array(
+                     'product_id' => $r->product_id,
+                    'no_faktur' => $r->no_faktur,
+                    'name' => $r->name,
+                    'purchase_price' => $r->purchase_price,
+                    'selling_price' => $r->selling_price,
+                    'qty' => $r->qty,
+                    'discount' => $r->discount,
+                ); 
+            $this->db->insert('tbpurchase_detail',$data);
+                $last_stock = $this->_get_last_stock($r->product_id);
+            $balance = $last_stock + $r->qty;
+             $data = array(
+                    'date' => $date,
+                    'product_id' => $r->product_id,
+                    'description' => 'PURCHASE',
+                    'description_code' => $no_faktur,
+                    'stock_out' => $r->qty,
+                    'balance' => $balance  
+                ); 
+             $this->db->insert('tbstock_card',$data);
+             $data = array(
+                   'stock' => $balance,
+                );
+             
+        $this->db->where('id', $r->product_id);
+        $this->db->update('tbproducts', $data);
+        $this->db->where('id', $r->id);
+                $this->db->delete('tbpurchase_temp');
+            endforeach;
+            
+            // end get data temp
+           // $insert = $this->db->insert_id();
+             
+             
+         if ($status == 0) :
+             $outgoing = $total;
+             $last_cash = $this->_get_last_cash();
+             $data = array(
+                    'date' => con2mysql($this->input->post('date')),
+                    'cash_code' => 'OUT',
+                    'description' => 'PURCHASE',
+                    'description_code' => $no_faktur,
+                    'outgoing' => $outgoing,
+                    'balance' => $last_cash + $outgoing  
+                ); 
+             $this->db->insert('tbcash_book',$data);
+          endif;   
+             
     }
     private function _get_last_cash()
     {
@@ -225,6 +320,16 @@ class Purchase_model extends CI_Model {
         $this->db->order_by('name', 'asc');
         return $this->db->get();
     }
+    function get_purchase_temp() {
+        return $this->db->get('tbpurchase_temp');
+    }
+    function delete_temp() {
+       
+        $this->db->where('id', $this->uri->segment(4));
+        $this->db->delete('tbpurchase_temp');
+        
+    }
+    
 }
 
 ?>

@@ -10,11 +10,11 @@
  *
  * @author BaseSystem Management http://bsmsite.com
  */
-class Purchase extends CI_Controller {
+class Loan extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->user_logged_in();
-        $this->load->model('app/purchase_model');
+        $this->load->model('app/loan_model');
     }
     function user_logged_in() 
     {
@@ -24,19 +24,18 @@ class Purchase extends CI_Controller {
         }
      }
     function index() {
-        $data['content'] = 'app/object/purchase/purchase_view';
-        $data['get_purchase'] = $this->purchase_model->get_purchase();
+        $data['content'] = 'app/object/cash/cash_loan_view';
+        $data['get_cash_loan'] = $this->loan_model->get_cash_loan();
         $this->load->view('app/template_view', $data);
     }
-    function saleX() {
-        $data['content'] = 'app/object/selling/selling_sale';
-        $this->load->view('app/template_view', $data);
-    }
-   function save() {
+    
+    function save() {
            
-            $this->purchase_model->save();
-            $this->session->set_flashdata('message', 'Purchase has been added..');
-            redirect('app/purchase/purchase_form/0');
+            $this->loan_model->save();
+            $this->session->set_flashdata('message', 'Loan Funds has been saved..');
+            redirect('app/loan');
+
+ 
     }
     function code_cek($code)
 	{
@@ -50,9 +49,9 @@ class Purchase extends CI_Controller {
 			return TRUE;
 		}
 	}
-    function buy() {
-        $data['getEdit'] = $this->purchase_model->editId();
-        $data['content'] = 'app/object/purchase/purchase_buy';
+    function add() {
+        $data['getEdit'] = $this->added_stock_model->editId();
+        $data['content'] = 'app/object/stock/added_stock_add';
         $this->load->view('app/template_view', $data);
     }
     function editFormId() {
@@ -88,23 +87,6 @@ class Purchase extends CI_Controller {
         $data['content'] = 'app/object/purchase/purchase_view';
         $data['get_purchase'] = $this->purchase_model->getSearchProduct();
         $this->load->view('app/template_view', $data);
-    }
-    function purchase_form() {
-        $data['getEdit'] = $this->purchase_model->editId();
-        $data['get_purchase_temp'] = $this->purchase_model->get_purchase_temp();
-        $data['content'] = 'app/object/purchase/purchase_form';
-        $this->load->view('app/template_view', $data);
-    }
-     function delete_temp() {
-            $this->purchase_model->delete_temp();
-            $this->session->set_flashdata('message', 'purchase has been delete..');
-            redirect('app/purchase/purchase_form/0');
-    } 
-    function save_fix() {
-           
-            $this->purchase_model->save_fix();
-            $this->session->set_flashdata('message', 'Purchasing has been added..');
-            redirect('app/purchase/purchase_form/0');
     }
 }
 

@@ -34,7 +34,7 @@
     <th>DATE</th>
     <th>CASH CODE</th>
     <th>DESC</th>
-    <th>DESC CODE</th>
+  <?php //  <th>DESC CODE</th> ?>
     <th>INCOMING</th>
     <th>OUTGOING</th>
     <th>BALANCE</th>
@@ -49,7 +49,7 @@
 <td><?php echo date("d-m-Y",strtotime($row->date)); ?></td>
 <td><?php echo $row->cash_code; ?></td>
 <td><?php echo $row->description; ?></td>
-<td><?php echo $row->description_code; ?></td>
+<?php /* <td><?php echo $row->description_code; ?></td> ; */?>
 <td><?php echo number_format($row->incoming, 0, ',', '.'); ?></td>
 <td><?php echo number_format($row->outgoing, 0, ',', '.');  ?></td>
 <td><?php echo number_format($row->balance, 0, ',', '.');  ?></td>

@@ -10,11 +10,11 @@
  *
  * @author BaseSystem Management http://bsmsite.com
  */
-class Receivables_sales extends CI_Controller {
+class Loan_payment extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->user_logged_in();
-        $this->load->model('app/receivables_sales_model');
+        $this->load->model('app/loan_payment_model');
     }
     function user_logged_in() 
     {
@@ -24,33 +24,33 @@ class Receivables_sales extends CI_Controller {
         }
      }
     function index() {
-        $data['content'] = 'app/object/finance/receivables_sales_view';
-        $data['get_debit'] = $this->receivables_sales_model->get_debit();
+        $data['content'] = 'app/object/cash/loan_payment_view';
+        $data['get_loan_payment'] = $this->loan_payment_model->get_loan_payment();
         $this->load->view('app/template_view', $data);
     }
-    function pay() {
+   /* function pay() {
       
             $data['getEdit'] = $this->receivables_sales_model->editId();
         $data['content'] = 'app/object/finance/receivables_sales_pay';
         $this->load->view('app/template_view', $data);
-    }
+    } */
     function save() {
             $this->receivables_sales_model->save();
             $this->session->set_flashdata('message', 'Credit has been paid..');
             redirect('app/receivables_sales');
     }
-     function payment() {
-            $this->receivables_sales_model->payment();
+     function pay() {
+            $this->loan_payment_model->payment();
             $this->session->set_flashdata('message', 'Credit has been paid..');
-            $nofak = $this->input->post('no_faktur');
-            redirect('app/receivables_sales/detail/'.$nofak);
+            $nofak = $this->input->post('id');
+            redirect('app/loan_payment/detail/'.$nofak);
     }
      function detail() {
       
-            $data['get_return_detail_index'] = $this->receivables_sales_model->get_return_detail_index();
-            $data['get_return_detail_content'] = $this->receivables_sales_model->get_return_detail_content();
-            $data['get_pembayaran_piutang_penjualan'] = $this->receivables_sales_model->get_pembayaran_piutang_penjualan();
-        $data['content'] = 'app/object/finance/receivables_sales_detail';
+            $data['get_loan_payment_id'] = $this->loan_payment_model->get_loan_payment_id();
+            $data['get_payment_of_loan'] = $this->loan_payment_model->get_payment_of_loan();
+            
+        $data['content'] = 'app/object/cash/loan_payment_detail';
         $this->load->view('app/template_view', $data);
     }
 }

@@ -43,6 +43,18 @@ class Return_purchase extends CI_Controller {
         $data['get_return_purchase'] = $this->return_purchase_model->search_return_purchase();
         $this->load->view('app/template_view', $data);
     }
+     function detail_returned() {
+      
+            $data['get_return_detail_index'] = $this->return_purchase_model->get_return_detail_index();
+            $data['get_return_detail_content'] = $this->return_purchase_model->get_return_detail_content();
+        $data['content'] = 'app/object/return/return_purchase_detail';
+        $this->load->view('app/template_view', $data);
+    }
+    function save_return() {
+            $this->return_purchase_model->save_return();
+            $this->session->set_flashdata('message', 'Purchase has been return..');
+            redirect('app/return_purchase');
+    }
 }
 
 ?>

@@ -90,7 +90,7 @@ class Tools_model extends CI_Model {
 	{
 		
 		$this->db->where('product_id', $idcode);
-                $query = $this->db->get('tbpurchase');
+                $query = $this->db->get('tbpurchase_detail');
 		if($query->num_rows() != 0)
 		{
 			return TRUE;
@@ -111,12 +111,32 @@ class Tools_model extends CI_Model {
             endforeach;
             return $nofak + 1;
         }
+        function no_faktur_purchase() 
+        {
+            $nofak = 0;
+            $this->db->order_by('no_faktur', 'desc');
+            $this->db->limit(1);
+            $q = $this->db->get('tbpurchase');
+            foreach ($q->result() as $nofaktur) :
+            $nofak = $nofaktur->no_faktur;
+            endforeach;
+            return $nofak + 1;
+        }
         function total_selling_temp() 
         {
            $t = 0;
             $q = $this->db->get('tbselling_temp');
             foreach ($q->result() as $total) :
             $t = $t + (($total->selling_price * $total->qty) - $total->discount);
+            endforeach;
+            return $t;
+        }
+        function total_purchase_temp() 
+        {
+           $t = 0;
+            $q = $this->db->get('tbpurchase_temp');
+            foreach ($q->result() as $total) :
+            $t = $t + (($total->purchase_price * $total->qty) - $total->discount);
             endforeach;
             return $t;
         }

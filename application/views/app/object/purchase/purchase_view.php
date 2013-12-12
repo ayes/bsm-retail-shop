@@ -72,7 +72,7 @@
 <td><?php echo $row->unit; ?></td>
 
 
-<td><?php echo anchor('app/purchase/buy/'.$row->idcode, 'PURCHASE', array('title'=>'Edit')); ?></td>
+<td><?php echo anchor('app/purchase/purchase_form/'.$row->idcode, 'PURCHASE', array('title'=>'Edit')); ?></td>
 <?php 
 /*
 <td><?php echo anchor('app/products/delete/'.$row->id.'/'.$row->picture, 'DELETE', array('title'=>'Hapus', 'onClick'=>"return confirm('Anda yakin ingin menghapus?')")); ?></td>

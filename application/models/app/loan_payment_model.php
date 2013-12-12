@@ -10,40 +10,37 @@
  *
  * @author BaseSystem Management http://bsmsite.com
  */
-class Receivables_sales_model extends CI_Model {
+class Loan_payment_model extends CI_Model {
 
     function __construct() {
         parent::__construct();
          $this->load->helper('mydate');
     }
    
-    function get_debit() {
-        $config['base_url'] = site_url('app/receivables_sales/index');
-        $this->db->where('status', 1);
-	$config['total_rows'] = $this->db->count_all('tbselling');
+    function get_loan_payment() {
+        $config['base_url'] = site_url('app/loan_payment/index');
+        $this->db->where('status', 0);
+	$config['total_rows'] = $this->db->count_all('tbloan');
         $config['per_page'] = 30;
         $config['uri_segment'] = 4;
         $this->pagination->initialize($config);
         $this->db->select('*');
-        $this->db->from('tbselling');
-        $this->db->where('status', 1);
+        $this->db->from('tbloan');
+        $this->db->where('status', 0);
         $this->db->limit(30, $this->uri->segment(4));
         $this->db->order_by('date asc, id desc');
         $query = $this->db->get();
         return $query;
     }
     
-    function get_return_detail_index() {
-        $this->db->where('no_faktur', $this->uri->segment(4));
-        return $this->db->get('tbselling');
+    function get_loan_payment_id() {
+        $this->db->where('id', $this->uri->segment(4));
+        return $this->db->get('tbloan');
     }
-    function get_return_detail_content() {
-        $this->db->where('no_faktur', $this->uri->segment(4));
-        return $this->db->get('tbselling_detail');
-    }
-   function get_pembayaran_piutang_penjualan() {
-        $this->db->where('no_faktur', $this->uri->segment(4));
-        return $this->db->get('tbpembayaran_piutang_penjualan');
+   
+   function get_payment_of_loan() {
+        $this->db->where('loan_id', $this->uri->segment(4));
+        return $this->db->get('tbpembayaran_dana_pinjaman');
     }
    function editId() {
         $this->db->where('id', $this->uri->segment(4));
@@ -76,33 +73,33 @@ class Receivables_sales_model extends CI_Model {
         $this->db->update('tbselling', $data);
     }
     function payment() {
-        $no_faktur = $this->input->post('no_faktur');
+        $loan_id = $this->input->post('id');
         $sisa = $this->input->post('sisa');
         $dibayar = $this->input->post('dibayar');
              $data = array(
                     'date' => con2mysql($this->input->post('date')),
-                    'no_faktur' => $no_faktur,
+                    'loan_id' => $loan_id,
                     'dibayar' => $dibayar,
                     'description' => $this->input->post('description')
                 ); 
-             $this->db->insert('tbpembayaran_piutang_penjualan',$data);
+             $this->db->insert('tbpembayaran_dana_pinjaman',$data);
         
-             $incoming = $dibayar;
+             $outgoing = $dibayar;
              $last_cash = $this->_get_last_cash();
              $data = array(
                     'date' => con2mysql($this->input->post('date')),
-                    'cash_code' => 'IN',
-                    'description' => 'PIUTANG PENJUALAN',
-                    'description_code' => $no_faktur,
-                    'incoming' => $incoming,
-                    'balance' => $last_cash + $incoming 
+                    'cash_code' => 'LOAN-OUT',
+                    'description' => $this->input->post('description'),
+                    'description_code' => $loan_id,
+                    'outgoing' => $outgoing,
+                    'balance' => $last_cash - $outgoing 
                 ); 
              $this->db->insert('tbcash_book',$data);
               $data = array( 
                     'residual' => $sisa - $dibayar
                 ); 
-             $this->db->where('no_faktur', $no_faktur);
-        $this->db->update('tbselling', $data);
+             $this->db->where('id', $loan_id);
+        $this->db->update('tbloan', $data);
     }
     private function _get_last_cash()
     {

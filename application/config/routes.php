@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "beranda";
+$route['default_controller'] = "app/apppanel";
 $route['app-panel'] 		= 'app/apppanel';
 $route['app-panel/proses'] 	= 'app/apppanel/proses';
 $route['app-panel/logout'] 	= 'app/apppanel/logout';

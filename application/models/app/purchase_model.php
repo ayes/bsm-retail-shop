@@ -217,7 +217,7 @@ class Purchase_model extends CI_Model {
                     'description' => 'PURCHASE',
                     'description_code' => $no_faktur,
                     'outgoing' => $outgoing,
-                    'balance' => $last_cash + $outgoing  
+                    'balance' => $last_cash - $outgoing  
                 ); 
              $this->db->insert('tbcash_book',$data);
           endif;   

@@ -26,20 +26,21 @@ class Counter_model extends CI_Model {
     function get_all_item() {   
             return $this->db->count_all('tbproducts');
     }
-    function get_all_purchase() {   
-            $this->db->select_sum('purchase_price', 'pp');
-        $q = $this->db->get('tbproducts')->result();
-        foreach ($q as $pp) :
-            return $pp->pp;
-        endforeach;
+    function get_all_purchase_selling() {   
+//            $this->db->select_sum('purchase_price', 'pp');
+//        $q = $this->db->get('tbproducts')->result();
+//        foreach ($q as $pp) :
+//            return $pp->pp;
+//        endforeach;
+        return $this->db->get('tbproducts');
     }
-    function get_all_selling() {   
-            $this->db->select_sum('selling_price', 'sp');
-        $q = $this->db->get('tbproducts')->result();
-        foreach ($q as $sp) :
-            return $sp->sp;
-        endforeach;
-    }
+//    function get_all_selling() {   
+//            $this->db->select_sum('selling_price', 'sp');
+//        $q = $this->db->get('tbproducts')->result();
+//        foreach ($q as $sp) :
+//            return $sp->sp;
+//        endforeach;
+//    }
    
     function get_unit() 
     {

@@ -18,15 +18,25 @@
 Total Item : <?php echo $get_all_item; ?>   
     </p>
     <p>
-Total All Stock : <?php echo $get_all_stock; ?>   
+Total Semua Stock : <?php echo $get_all_stock; ?>   
     </p>    
     <p>
-Total All Purchase : <?php echo number_format($get_all_purchase, 0, ',', '.'); ?>   
+        <?php 
+        $total_purchase = 0;
+        foreach($get_all_purchase_selling->result() as $row) :
+           $total_purchase = $total_purchase + ($row->purchase_price * $row->stock);
+        endforeach; ?>
+Total Semua Pembelian : <?php echo number_format($total_purchase, 0, ',', '.'); ?>   
     </p>
     <p>
-Total All Sale : <?php echo number_format($get_all_selling, 0, ',', '.'); ?> 
+        <?php 
+        $total_selling = 0;
+        foreach($get_all_purchase_selling->result() as $row) :
+           $total_selling = $total_selling + ($row->selling_price * $row->stock);
+        endforeach; ?>
+Total Semua Penjualan : <?php echo number_format($total_selling, 0, ',', '.'); ?> 
     </p>
-    <?php $total_profit = $get_all_selling - $get_all_purchase; ?>  
+    <?php $total_profit = $total_selling - $total_purchase; ?>  
     <p>
 Profit : <?php echo number_format($total_profit, 0, ',', '.'); ?> 
     </p>

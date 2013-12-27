@@ -27,8 +27,8 @@ class Counter extends CI_Controller {
         $data['content'] = 'app/object/stock/counter_view';
         $data['get_all_stock'] = $this->counter_model->get_all_stock();
         $data['get_all_item'] = $this->counter_model->get_all_item();
-        $data['get_all_purchase'] = $this->counter_model->get_all_purchase();
-        $data['get_all_selling'] = $this->counter_model->get_all_selling();
+        $data['get_all_purchase_selling'] = $this->counter_model->get_all_purchase_selling();
+        //$data['get_all_selling'] = $this->counter_model->get_all_selling();
         $this->load->view('app/template_view', $data);
     }
 }

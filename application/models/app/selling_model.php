@@ -82,10 +82,10 @@ class Selling_model extends CI_Model {
         $code = $this->input->post('code');
         $qty = $this->input->post('qty');
         $discount = $this->input->post('discount');
+        $up_price = $this->input->post('up_price');
         $selling_price = $this->input->post('selling_price');
        // $status = $this->input->post('status');
             $data = array(
-                 //   'date' => con2mysql($this->input->post('date')),
                     'product_id' => $code,
                     'no_faktur' => $this->input->post('no_faktur'),
                     'name' => $this->input->post('name'),
@@ -93,48 +93,13 @@ class Selling_model extends CI_Model {
                     'selling_price' => $selling_price,
                     'qty' => $qty,
                     'discount' => $discount,
-                  //  'status' => $status,
-                 //   'description' => $this->input->post('description')
+                    'up_price' => $up_price,
                 ); 
             $this->db->insert('tbselling_temp',$data);
-            /* $insert = $this->db->insert_id();
-             $last_stock = $this->_get_last_stock($code);
-             $balance = $last_stock - $qty;
-             $data = array(
-                    'date' => con2mysql($this->input->post('date')),
-                    'product_id' => $code,
-                    'description' => 'SALE',
-                    'description_code' => $insert,
-                    'stock_out' => $qty,
-                    'balance' => $balance  
-                ); 
-             $this->db->insert('tbstock_card',$data);
-             $data = array(
-                   'stock' => $balance,
-                );
-             
-        $this->db->where('id', $code);
-        $this->db->update('tbproducts', $data);
-         if ($status == 0) :
-             $incoming = ($qty * $selling_price) - $discount;
-             $last_cash = $this->_get_last_cash();
-             $data = array(
-                    'date' => con2mysql($this->input->post('date')),
-                    'cash_code' => 'IN',
-                    'description' => 'SALE',
-                    'description_code' => $insert,
-                    'incoming' => $incoming,
-                    'balance' => $last_cash + $incoming  
-                ); 
-             $this->db->insert('tbcash_book',$data);
-          endif;   
-             */
+            
     }
     function save_fix() {
-       // $code = $this->input->post('code');
-      //  $qty = $this->input->post('qty');
-       // $discount = $this->input->post('discount');
-       // $selling_price = $this->input->post('selling_price');
+       
         $status = $this->input->post('status');
         $no_faktur = $this->input->post('no_faktur');
         $total = $this->input->post('total');
@@ -165,6 +130,7 @@ class Selling_model extends CI_Model {
                     'selling_price' => $r->selling_price,
                     'qty' => $r->qty,
                     'discount' => $r->discount,
+                    'up_price' => $r->up_price,
                 ); 
             $this->db->insert('tbselling_detail',$data);
                 $last_stock = $this->_get_last_stock($r->product_id);

@@ -27,13 +27,13 @@
     </ul>
       <ul class="nav navbar-nav navbar">
         <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-time"></span> Transaction <b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-time"></span> Transaksi <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="/app/selling"><span class="glyphicon glyphicon-time"></span> Selling</a></li>
-                <li><a href="/app/purchase"><span class="glyphicon glyphicon-time"></span> Purchase</a></li>
+                <li><a href="/app/selling"><span class="glyphicon glyphicon-time"></span> Penjualan</a></li>
+                <li><a href="/app/purchase"><span class="glyphicon glyphicon-time"></span> Pembelian</a></li>
                 <li class="divider"></li>
-                <li><a href="/app/return_selling"><span class="glyphicon glyphicon-time"></span> Return Selling</a></li>
-                <li><a href="/app/return_purchase"><span class="glyphicon glyphicon-time"></span> Return Purchase</a></li>
+                <li><a href="/app/return_selling"><span class="glyphicon glyphicon-time"></span> Retur Penjualan</a></li>
+                <li><a href="/app/return_purchase"><span class="glyphicon glyphicon-time"></span> Retur Pembelian</a></li>
             </ul>
         </li>
     </ul> 

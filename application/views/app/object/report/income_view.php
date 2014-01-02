@@ -20,6 +20,7 @@
     <th>PP</th>
     <th>SP</th>
     <th>DISC</th>
+    <th>TB</th>
     <th>HPP</th>
     <?php // <th>DELETE</th> ?>
 </tr>                   
@@ -36,10 +37,11 @@
 <td><?php echo number_format($row->selling_price, 0, ',', '.'); ?></td>
 <td><?php echo $row->qty; ?></td>
 <?php  $pp = $row->purchase_price * $row->qty; ?>
-<?php  $sp = ($row->selling_price * $row->qty) - $row->discount; ?>
+<?php  $sp = (($row->selling_price * $row->qty) + $row->up_price) - $row->discount; ?>
 <td><?php echo number_format($pp, 0, ',', '.'); ?></td>
 <td><?php echo number_format($sp, 0, ',', '.'); ?></td>
 <td><?php echo number_format($row->discount, 0, ',', '.'); ?></td>
+<td><?php echo number_format($row->up_price, 0, ',', '.'); ?></td>
 <?php $hpp = $sp - $pp; ?>
 <td><?php echo number_format($hpp, 0, ',', '.'); ?></td>
 <?php 

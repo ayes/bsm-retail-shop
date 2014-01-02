@@ -48,7 +48,8 @@
     </div>
 <br />
 <div class="text-right col-lg-12">
-    <?php echo anchor('app/selling/selling_form/0', 'Selling Form'); ?>
+    <?php // echo anchor('app/selling/selling_form/0', 'Selling Form'); ?>
+    <br />
 </div>
 <br />
 <div class="col-lg-12">

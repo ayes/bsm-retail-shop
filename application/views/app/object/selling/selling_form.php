@@ -49,7 +49,10 @@
     <label for="discount">DISCOUNT</label>
     <input name="discount" value="0" type="text" class="form-control" id="discount" required="required">
       </div>
-               
+         <div class="form-group">
+    <label for="up_price">Tambahan Biaya</label>
+    <input name="up_price" value="0" type="text" class="form-control" id="up_price" required="required">
+      </div>      
              
   <button type="submit" class="btn btn-primary">Submit</button>
   <?php endforeach; ?>
@@ -66,7 +69,6 @@
         <label for="date">Date</label>
         <?php $data = array(
             'name' => 'date',
-            'class' => 'form-control',
             'size' => 10,
             'required' => 'required',
             'readonly' => 'readonly',
@@ -74,9 +76,9 @@
             'value' => set_value('date', date('d-m-Y'))
         ); ?>
         <?php echo form_input($data); ?> 
-        <div class="text-right">
+        
             <img src="/dtpicker/img/cal.gif" onclick="javascript:NewCssCal ('date','ddMMyyyy')" style="cursor:pointer"/>
-            </div>
+           
         </div>
         <div class="form-group">
     <label for="status">Status</label>
@@ -106,6 +108,7 @@
     <th>SELLING PRICE</th>
     <th>QTY</th>
     <th>DISCOUNT</th>
+    <th>TAMBAHAN BIAYA</th>
     <th>TOTAL</th>
     <th>DELETE</th>
 </tr>                   
@@ -119,7 +122,8 @@
 <td><?php echo number_format($row->selling_price, 0, ',', '.'); ?></td>
 <td><?php echo $row->qty; ?></td>
 <td><?php echo number_format($row->discount, 0, ',', '.'); ?></td>
-<?php $total = ($row->selling_price * $row->qty) - $row->discount; ?>
+<td><?php echo number_format($row->up_price, 0, ',', '.'); ?></td>
+<?php $total = (($row->selling_price * $row->qty) + $row->up_price) - $row->discount; ?>
 <td><?php echo number_format($total, 0, ',', '.'); ?></td>
 <?php 
 /*

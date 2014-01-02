@@ -127,7 +127,7 @@ class Tools_model extends CI_Model {
            $t = 0;
             $q = $this->db->get('tbselling_temp');
             foreach ($q->result() as $total) :
-            $t = $t + (($total->selling_price * $total->qty) - $total->discount);
+            $t = $t + ((($total->selling_price * $total->qty) + $total->up_price)- $total->discount);
             endforeach;
             return $t;
         }

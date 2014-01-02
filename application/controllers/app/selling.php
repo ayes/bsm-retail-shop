@@ -26,6 +26,7 @@ class Selling extends CI_Controller {
     function index() {
         $data['content'] = 'app/object/selling/selling_view';
         $data['get_selling'] = $this->selling_model->get_selling();
+        $this->session->set_userdata('submit_sale', TRUE);
         $this->load->view('app/template_view', $data);
     }
     function saleX() {
@@ -103,11 +104,15 @@ class Selling extends CI_Controller {
             redirect('app/selling/selling_form/0');
     } 
     function save_fix() {
-           
+           if ($this->session->userdata('submit_sale') === TRUE) :
             $this->selling_model->save_fix();
             $this->session->set_flashdata('message', 'Selling has been added..');
-            redirect('app/selling/selling_form/0');
-
+            $this->session->set_userdata('submit_sale', FALSE);
+            redirect('app/selling');
+            else:
+            $this->session->set_flashdata('message', 'Selling has been added..');
+            redirect('app/selling');    
+            endif;
  
     }
 }

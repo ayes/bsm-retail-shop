@@ -36,6 +36,7 @@ class Products extends CI_Controller {
         $data['content'] = 'app/object/products/products_add';
         $data['getProductCategory'] = $this->products_model->getProductCategory();
         $data['get_unit'] = $this->products_model->get_unit();
+        $this->session->set_userdata('submit_product_add', TRUE);
         $this->load->view('app/template_view', $data);
     }
     function save() {
@@ -58,11 +59,17 @@ class Products extends CI_Controller {
 		}
 		else
 		{
+            if ($this->session->userdata('submit_product_add') === TRUE) :        
             $this->session->set_flashdata('ses_save_category',$this->input->post('product_category_id'));
             $this->session->set_flashdata('ses_save_unit',$this->input->post('unit_id'));
             $this->products_model->save();
             $this->session->set_flashdata('message', 'Product has been added..');
+            $this->session->set_userdata('submit_product_add', FALSE);
             redirect('app/products/add');
+            else:
+            $this->session->set_flashdata('message', 'Product has been added..');
+            redirect('app/products/add');
+            endif;
                 }
  
     }
@@ -83,6 +90,7 @@ class Products extends CI_Controller {
         $data['getProductCategory'] = $this->products_model->getProductCategory();
         $data['get_unit'] = $this->products_model->get_unit();
         $data['content'] = 'app/object/products/products_edit';
+        $this->session->set_userdata('submit_product_edit', TRUE);
         $this->load->view('app/template_view', $data);
     }
     function editFormId() {
@@ -103,11 +111,15 @@ class Products extends CI_Controller {
         $this->load->view('admin/template_admin_view', $data);
     }
     function update() {
-         
+            if ($this->session->userdata('submit_product_edit') === TRUE) :
             $this->products_model->update();
             $this->session->set_flashdata('message', 'Product has been update..');
+            $this->session->set_userdata('submit_product_edit', FALSE);
             redirect('app/products');
-
+            else:
+            $this->session->set_flashdata('message', 'Product has been update..');
+            redirect('app/products');    
+            endif;
     }
     function delete() {
         if (($this->tools_model->cek_no_delete_selling($this->uri->segment(4)) === TRUE) || $this->tools_model->cek_no_delete_purchase($this->uri->segment(4)) === TRUE ) :
